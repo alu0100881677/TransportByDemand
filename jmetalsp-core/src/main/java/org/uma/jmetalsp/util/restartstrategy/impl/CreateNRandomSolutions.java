@@ -1,0 +1,30 @@
+package org.uma.jmetalsp.util.restartstrategy.impl;
+
+import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.pseudorandom.JMetalRandom;
+import org.uma.jmetalsp.DynamicProblem;
+import org.uma.jmetalsp.util.restartstrategy.CreateNewSolutionsStrategy;
+
+import java.util.List;
+import java.util.stream.IntStream;
+
+import static org.uma.jmetal.util.SolutionListUtils.fillPopulationWithNewSolutions;
+
+/**
+ * Created by antonio on 6/06/17.
+ */
+public class CreateNRandomSolutions<S extends Solution<?>> implements CreateNewSolutionsStrategy<S> {
+
+  @Override
+  public void create(List<S> solutionList, DynamicProblem<S, ?> problem, int numberOfSolutionsToCreate) {
+    if (solutionList == null) {
+      throw new JMetalException("The solution list is null") ;
+    } else if (problem == null) {
+      throw new JMetalException("The problem is null") ;
+    }
+
+    IntStream.range(0, numberOfSolutionsToCreate)
+            .forEach(s -> {solutionList.add(problem.createSolution());});
+  }
+}

@@ -33,7 +33,6 @@ import org.uma.jmetalsp.problem.tsp.TSPMatrixData;
 
 
 public class DynamicApplicationTransportByDemand {
-	private final static String baseDir = "/Users/Guille/Google Drive/universidad/jMetalSP/jmetalsp-examples/Datos/";
 	public static void main(String args[])throws Exception {
 		/*
 		 * args 0 --> fichero de distancias
@@ -52,7 +51,8 @@ public class DynamicApplicationTransportByDemand {
 						"		 * arg 2 --> fichero con la localización de los buses\n" + 
 						"		 * arg 3 --> nombre del fichero con las peticiones\n" + 
 						"		 * arg 4 --> nombre del directorio que almacena los frentes de pareto\n" + 
-						"		 * arg 5 --> periodo de lectura de nuevas peticiones en milisegundos(2000)");
+						"		 * arg 5 --> periodo de lectura de nuevas peticiones en milisegundos(2000)"
+						+ "TODOS LOS FICHEROS DEBEN DE ESTAR EN LA CARPETA jmetal-examples/Datos y solo debe indicar su nombre ");
 			}
 			else {
 				System.out.println("Ejecute la opción -h para ver como se ejecuta el programa");
@@ -69,7 +69,7 @@ public class DynamicApplicationTransportByDemand {
 		}
 		//Step 1. Create the problem
 		DynamicProblem<IntegerSolution, SingleObservedData<PRBDMatrixData>> problem;
-		problem = new MultiobjectivePRBDBuilder(baseDir + args[0], baseDir + args[1], baseDir + args[2])
+		problem = new MultiobjectivePRBDBuilder("Datos/" + args[0],"Datos/" + args[1], "Datos/" + args[2])
 				.build();
 		
 		//Step 2. Create the algorithm
@@ -104,7 +104,7 @@ public class DynamicApplicationTransportByDemand {
 		
 		StreamingPRBDSource streamingPRBDSource = new StreamingPRBDSource(
 				new DefaultObservable<>(), Integer.parseInt(args[5]),
-				baseDir + args[3]);
+				"Datos/" + args[3]);
 		streamingPRBDSource.getObservable().register(problem);
 		
 		//Step 4. Create the data consumers and register into the algorithm

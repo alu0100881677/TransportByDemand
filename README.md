@@ -17,17 +17,17 @@ El repositorio contiene tres modulos distintos los cuales pueden compenetrar su 
    * número de milisegundos entre la generación de cada petición (5 segundos = 5000)
 
  * El segundo modulo, es el encargado de resolver el problema, para ello hace uso del algoritmo nsga-ii. Para configurar este modulo debemos de pasar una serie de parametros a *./solucionadorProblema.sh*:
-  * fichero de distancias
-  * fichero de costes
-  * fichero con la localización de los buses
-  * nombre del fichero con las peticiones
-  * nombre del directorio que almacena los frentes de pareto
-  * periodo de lectura de nuevas peticiones en milisegundos(2000)
+   * fichero de distancias
+   * fichero de costes
+   * fichero con la localización de los buses
+   * nombre del fichero con las peticiones
+   * nombre del directorio que almacena los frentes de pareto
+   * periodo de lectura de nuevas peticiones en milisegundos(2000)
 
 Todos los ficheros que se pasen como parámetro deben de estar en  jmetal-examples/Datos y solo debe indicar su nombre.
  * El tercer modulo representa las soluciones obtenidas por el segundo modulo mediante un servicio web. Para ponerlo en funcionamiento se debe de ejecutar el script *./visorPareto.sh* al que se le deben de pasar una serie de argumentos:
-  * nombre del directorio donde que almacena los frentes de pareto
-  * periodo en milisegundos que pasa entre la traducción de cada fichero, se recomienda usar 2000.
+   * nombre del directorio donde que almacena los frentes de pareto
+   * periodo en milisegundos que pasa entre la traducción de cada fichero, se recomienda usar 2000.
 
 ### Ejemplo de ejecución
 Tal y como se ha mencionado previamente cada modulo debe de ser ejecutado en una terminal distinta. Además para que el funcionamiento del programa sea el adecuado, se deben de ejecutar los modulos en orden.

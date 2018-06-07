@@ -1,4 +1,4 @@
-package org.uma.jmetalsp.examples.MyProblem;
+package org.uma.jmetalsp.examples.PRBD;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class DynamicApplicationTransportByDemand {
 						"		 * arg 2 --> fichero con la localización de los buses\n" + 
 						"		 * arg 3 --> nombre del fichero con las peticiones\n" + 
 						"		 * arg 4 --> nombre del directorio que almacena los frentes de pareto\n" + 
-						"		 * arg 5 --> periodo de lectura de nuevas peticiones en milisegundos(2000)"
+						"		 * arg 5 --> periodo de lectura de nuevas peticiones en milisegundos(2000)\n"
 						+ "TODOS LOS FICHEROS DEBEN DE ESTAR EN LA CARPETA jmetal-examples/Datos y solo debe indicar su nombre ");
 			}
 			else {
@@ -60,7 +60,7 @@ public class DynamicApplicationTransportByDemand {
 			System.exit(-1);
 			break;
 		case 6:
-			
+			;
 			break;
 		default:
 			System.out.println("Ejecute la opción -h para ver como se ejecuta el programa");

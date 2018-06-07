@@ -11,9 +11,18 @@ public class Translator {
 	
 	public static void main(String[] args) throws Exception {
 		Thread.sleep(Translator.initialDelay);
-		if(args.length != 2) {
-			System.out.println("Debe de pasar el nombre del directorio donde se han generado los frentes de pareto bajo la ruta jMetalSP-master/jmetalsp-examples/");
-			System.out.println("El segundo argumento debe de ser el periodo, expresado como número de milisegundos, que pasa entre la traducción de cada fichero");
+		if(args.length == 0) {
+			System.out.println("Ejecute el programa con la opción -h");
+			System.exit(-1);
+		}
+		else if(args[0].equals("-h")) {
+			System.out.println("EJECUCIÓN DEL PROGRAMA:\n");
+			System.out.println("* \targ 1 --> nombre del directorio donde se han generado los frente de pareto\n" + 
+					"		 * \targ 1 --> periodo en milisegundo que pasa entre la traudccion de cada fichero(2000)\n");
+			System.exit(-1);
+		}
+		else if(args.length != 2) {
+			System.out.println("Ejecute el programa con la opción -h");System.exit(-1);
 			System.exit(-1);
 		}
 		File x = new File("jmetalsp-examples/" + args[0]);

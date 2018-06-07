@@ -1,4 +1,4 @@
-package org.uma.jmetalsp.examples.MyProblem;
+package org.uma.jmetalsp.examples.PRBD;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

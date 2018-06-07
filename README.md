@@ -4,7 +4,7 @@ Este repositorio contiene el código necesario para resolver una variante de los
 
 Para conocer bien este problema es necesario conocer los datos que van a ser usados, así mismo como las características que presenta el problema y los distintos objetivos que se pretenden alcanzar a resolverlo.
 
-##INSTALACION
+## Instalación
  * En primer lugar debe de clonar este repositorio
  * Una vez clonado, situese en en la base del directorio y ejecute el script bash [`configurador.sh`]. Este script se encargará de instalar las dependencias necesarias del proyecto.
 

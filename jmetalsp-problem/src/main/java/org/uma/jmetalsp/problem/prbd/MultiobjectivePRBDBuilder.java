@@ -1,6 +1,7 @@
 package org.uma.jmetalsp.problem.prbd;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -46,8 +47,8 @@ public class MultiobjectivePRBDBuilder {
 		double[][] distanceMatrix;
 		double[][] costMatrix;
 		
-		distanceMatrix = readProblem(distanceFileName);
-		costMatrix = readProblem(costFileName);
+		distanceMatrix = readMatrixProblem(distanceFileName);
+		costMatrix = readMatrixProblem(costFileName);
 		ArrayList<Integer> busesLocations = (ArrayList<Integer>) readBusesLocationsFile(busesLocationsFileName).clone();
 		numberOfBuses = busesLocations.size();
 		numberOfStops = distanceMatrix.length - numAlmacenes;
@@ -128,6 +129,38 @@ public class MultiobjectivePRBDBuilder {
 	    }
 	    return matrix;
 	 }
+	
+	private double [][] readMatrixProblem(String file){
+		double [][] matrix = null;
+		FileReader lector  = null;
+	    BufferedReader br = null;
+	    try {
+	    	File arch = new File(file);
+	        if(!arch.exists()){
+	           System.out.println("No existe el archivo");
+	        }else{
+	           lector = new FileReader(file);
+	           br = new BufferedReader(lector);
+	        }
+	        String linea = br.readLine();
+	        while (linea.startsWith("#")) {
+				linea = br.readLine();			
+			}
+	        int numberOfPoints = Integer.parseInt(linea);
+	        matrix =  new double[numberOfPoints][numberOfPoints];
+	        for(int i = 0; i < numberOfPoints; i++) {
+	        	linea = br.readLine();
+	        	StringTokenizer st = new StringTokenizer(linea, " ", false);
+	        	for(int j = 0; j < numberOfPoints; j++) {
+	        		matrix[i][j] = Double.parseDouble(st.nextToken());
+	        	}
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return matrix;
+	    
+	}
 	
 	private ArrayList<Integer> readBusesLocationsFile(String file) throws Exception{
 		ArrayList<Integer> busesPosition = new ArrayList<Integer>();

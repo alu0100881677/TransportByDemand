@@ -32,7 +32,7 @@ Todos los ficheros que se pasen como parámetro deben de estar en  jmetal-exampl
 ### Ejemplo de ejecución
 Tal y como se ha mencionado previamente cada modulo debe de ser ejecutado en una terminal distinta. Además para que el funcionamiento del programa sea el adecuado, se deben de ejecutar los modulos en orden.
  * Primer modulo --> ./generadorPeticiones.sh generacion.txt 10 150 5000
- * Segundo modulo --> ./solucionadorProblema.sh distanceFile.prbd costFile.prbd busesLocations.prbd generacion.txt DirectorioSalida 2000
+ * Segundo modulo --> ./solucionadorProblema.sh ficheroDistancias.prbd ficheroCostes.prbd busesLocations.prbd generacion.txt DirectorioSalida 2000
  * Tercer modulo --> ./visorPareto.sh DirectorioSalida 2000
 ## Datos
 * **n :** este parametro del problema indica el número de paradas donde un usuario puede solicitar un desplazamiento a otro parada.

@@ -1,5 +1,5 @@
 #!/bin/sh
-cd /prbdGenerator
+cd prbdGenerator
 mvn install
 cd ..
 chmod 777 visorPareto.sh

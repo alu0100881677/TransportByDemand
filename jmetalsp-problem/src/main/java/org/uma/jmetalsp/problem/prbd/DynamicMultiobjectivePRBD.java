@@ -50,7 +50,7 @@ public class DynamicMultiobjectivePRBD
 		this.distanceMatrix = distanceMatrix;
 		this.observable = observable;
 		this.numberOfBuses = busesLocations.size();
-		
+				
 		theProblemHasBeenModified = false;
 		
 		setName("DMoPRBD");
@@ -63,6 +63,7 @@ public class DynamicMultiobjectivePRBD
 		List<Integer> lowerLimit = new ArrayList<Integer>();
 		final int lower = -1;
 		final int upper = numberOfStations - 1;
+		
 		for(int i = 0; i < getNumberOfVariables(); i++) {
 			upperLimit.add(upper);
 			lowerLimit.add(lower);
@@ -94,6 +95,7 @@ public class DynamicMultiobjectivePRBD
 	
 	public synchronized void addPetition(PRBDMatrixData data) {
 		peticiones.add(data);
+		System.out.println("nueva petición de movilidad --> " + data);
 		theProblemHasBeenModified = true;
 	}
 
@@ -207,6 +209,13 @@ public class DynamicMultiobjectivePRBD
 		        if(busId >= numberOfBuses) {
 		        	busId = busId % numberOfBuses;
 		        }
+		        if(timeline > (8* 60 * 60)) {
+		        	//penalización por durar más de las horas de una jornada
+		        	//System.out.println("Penalización por durar más de las horas de una jornada, horas de más --> " + ((timeline - 28800) / (60 * 60)) );
+		        	fitness1 += 10000;
+		        }
+		        //ruta de nueva guagua tiempo cero
+		        timeline = 0;
 		        //System.out.println("AHORA ESTA LA GUAGUA --> " + busId);
 				if(y != -1) {
 					fitness1 += distanceMatrix[busesLocations.get(busId) + numberOfStations - 1][y];
@@ -229,14 +238,6 @@ public class DynamicMultiobjectivePRBD
 		}
 		if(y != -1) {
 			fitness2 += evaluarPasajeros(y, busId);
-			if(x != -1) {
-				timeline += costMatrix[x][y];
-			}
-			else {
-				timeline += costMatrix[busId][y];
-			}
-			fitness1 += distanceMatrix[y][busesLocations.get(busId) + numberOfStations - 1];
-			traza += "[" + (busesLocations.get(busId) + numberOfStations - 1) + "][" + y + "] fuera del for\n";
 		}
 		//System.out.println(traza);
 		//System.out.println("Pimer objetivo: " + fitness1);
@@ -246,12 +247,12 @@ public class DynamicMultiobjectivePRBD
 		solution.setObjective(1, fitness2);
 		resetPasajeros();
 		timeline = 0;
-		//try {
-		//	Thread.sleep(2000);
-		//} catch (InterruptedException e) {
+		/*try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
+			e.printStackTrace();
+		}*/
 	}
 	
 	public int evaluarPasajeros(int parada, int idBus) {
@@ -290,7 +291,7 @@ public class DynamicMultiobjectivePRBD
 		int fitness = 0;
 		for(int i  = 0; i < peticiones.size(); i++) {
 			PRBDMatrixData peticion = peticiones.get(i);
-			if((peticion.getServed() ==  false) && (peticion.getRide() ==  false) && (peticion.getInstant() < timeline)) {
+			if((peticion.getServed() ==  false) && (peticion.getRide() ==  false)) {
 				peticion.setServed(true);
 				peticion.setRide(false);
 				fitness += PENALIZACION;

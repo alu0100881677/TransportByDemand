@@ -1,4 +1,7 @@
 package org.uma.jmetalsp.problem.prbd;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +74,17 @@ public class DynamicMultiobjectivePRBD
 		setLowerLimit(lowerLimit);
 		setUpperLimit(upperLimit);
 		
+		FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {
+			fichero = new FileWriter("Datos/peticionesContempladas.txt", false);
+			pw = new PrintWriter(fichero);
+			pw.write("");
+			pw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		overallConstraintViolationDegree = new OverallConstraintViolation<IntegerSolution>() ;
 		numberOfViolatedConstraints = new NumberOfViolatedConstraints<IntegerSolution>();
 	}
@@ -96,6 +110,7 @@ public class DynamicMultiobjectivePRBD
 	public synchronized void addPetition(PRBDMatrixData data) {
 		peticiones.add(data);
 		System.out.println("nueva petición de movilidad --> " + data);
+		recogerPeticionFichero(data);
 		theProblemHasBeenModified = true;
 	}
 
@@ -170,7 +185,7 @@ public class DynamicMultiobjectivePRBD
 	@Override
 	public synchronized void evaluate(IntegerSolution solution) {
 		//Evaluación del primer objetivo
-		String traza = "";
+		//String traza = "";
 		int busId = 0;
 		double fitness1 = 0;
 		double fitness2 = 0;
@@ -196,7 +211,7 @@ public class DynamicMultiobjectivePRBD
 		}
 		x = busesLocations.get(busId) + numberOfStations - 1;
 		timeline += costMatrix[x][y];
-		traza += "[" + x + "][" + y + "]" + distanceMatrix[x][y] + "\n";
+		//traza += "[" + x + "][" + y + "]" + distanceMatrix[x][y] + "\n";
 		fitness1 += distanceMatrix[x][y];
 		fitness2 += evaluarPasajeros(y, busId);
 		for(int j = i; j < getNumberOfVariables() - 1; j++) {		
@@ -219,19 +234,19 @@ public class DynamicMultiobjectivePRBD
 		        //System.out.println("AHORA ESTA LA GUAGUA --> " + busId);
 				if(y != -1) {
 					fitness1 += distanceMatrix[busesLocations.get(busId) + numberOfStations - 1][y];
-					traza += "[" + (busesLocations.get(busId) + numberOfStations - 1) + "][" + y + "]" + distanceMatrix[busesLocations.get(busId) + numberOfStations - 1][y] + "caso 1\n";
+					//traza += "[" + (busesLocations.get(busId) + numberOfStations - 1) + "][" + y + "]" + distanceMatrix[busesLocations.get(busId) + numberOfStations - 1][y] + "caso 1\n";
 		            timeline += costMatrix[busesLocations.get(busId) + numberOfStations - 1][y];
 		        }
 			}
 			else if(y == -1) {
 				fitness1 += distanceMatrix[x][busesLocations.get(busId) + numberOfStations - 1];
-				traza += "[" + x + "][" + (busesLocations.get(busId) + numberOfStations - 1) + "]" + distanceMatrix[x][busesLocations.get(busId) + numberOfStations -1] + "caso 2\n";
+				//traza += "[" + x + "][" + (busesLocations.get(busId) + numberOfStations - 1) + "]" + distanceMatrix[x][busesLocations.get(busId) + numberOfStations -1] + "caso 2\n";
 		        fitness2 += evaluarPasajeros(x, busId);
 		        timeline += costMatrix[x][busesLocations.get(busId) + numberOfStations - 1];
 		    }
 			else {
 				fitness1 += distanceMatrix[x][y];
-				traza += "[" + x + "][" + y + "]" + distanceMatrix[x][y] + " caso 3\n";
+				//traza += "[" + x + "][" + y + "]" + distanceMatrix[x][y] + " caso 3\n";
 		        fitness2 += evaluarPasajeros(x, busId);
 		        timeline += costMatrix[x][y];
 			}
@@ -255,7 +270,7 @@ public class DynamicMultiobjectivePRBD
 		}*/
 	}
 	
-	public int evaluarPasajeros(int parada, int idBus) {
+	public synchronized int evaluarPasajeros(int parada, int idBus) {
 		int fitness = 0;
 		for(int i  = 0; i < peticiones.size(); i++) {
 			PRBDMatrixData peticion = peticiones.get(i);
@@ -275,7 +290,7 @@ public class DynamicMultiobjectivePRBD
 		return fitness;
 	}
 	
-	public int penalizarPasajerosNoServidos() {
+	public synchronized int penalizarPasajerosNoServidos() {
 		int fitness = 0; 
 		for(int i = 0; i < peticiones.size(); i++) {
 			if((peticiones.get(i).getRide()) && (!peticiones.get(i).getServed())) {
@@ -287,7 +302,7 @@ public class DynamicMultiobjectivePRBD
 		return fitness;
 	}
 	
-	public int penalizarPasajerosOmitidos() {
+	public synchronized int penalizarPasajerosOmitidos() {
 		int fitness = 0;
 		for(int i  = 0; i < peticiones.size(); i++) {
 			PRBDMatrixData peticion = peticiones.get(i);
@@ -295,7 +310,6 @@ public class DynamicMultiobjectivePRBD
 				peticion.setServed(true);
 				peticion.setRide(false);
 				fitness += PENALIZACION;
-				//System.out.println("Penalizando --> " + peticion + "no llego a subir a la gugua");
 			}
 		}
 		return fitness;
@@ -330,6 +344,30 @@ public class DynamicMultiobjectivePRBD
 			}
 			System.out.println();
 		}
+	}
+	
+	
+	public void recogerPeticionFichero(PRBDMatrixData dato) {
+		FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {  	
+            fichero = new FileWriter("Datos/peticionesContempladas.txt", true);
+            pw = new PrintWriter(fichero);
+            pw.println( dato + "\n");
+            pw.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+           try {
+               if (null != fichero)
+                  fichero.close();
+           } catch (Exception e2) {
+               e2.printStackTrace();
+           }
+        }
 	}
 	  
 }

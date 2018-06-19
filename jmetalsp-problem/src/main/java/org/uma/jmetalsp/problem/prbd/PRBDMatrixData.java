@@ -67,8 +67,7 @@ public class PRBDMatrixData {
 
 	@Override
 	public String toString() {
-		return "PRBDMatrixData [origin=" + origin + ", destiny=" + destiny + ", instant=" + instant + ", ride=" + ride
-				+ ", served=" + served + "]";
+		return "Petición de movilidad [Parada de origen = " + origin + ", Parada de detino = " + destiny + ", Generada en instante = " + instant + "]";
 	}
 	
 	

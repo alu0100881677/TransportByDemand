@@ -17,7 +17,7 @@
   </style>
 </head>
 <body>
-  <h1>TSP Pareto Front</h1>
+  <h1>PRBD Pareto Front</h1>
   <!-- Container for the visualization -->
   <div id="vis"></div>
 
@@ -33,10 +33,10 @@
         "field": "x",
         "type": "quantitative",
         "axis": {
-          "title": "Distancia recorrida"
+          "title": "Distancia recorrida en metros"
         },
         "scale": {
-          "domain": [10000,70000]
+          "domain": [2000,40000]
         }
       },
       "x": {
@@ -44,10 +44,10 @@
         "field": "y",
         "type": "quantitative",
         "axis": {
-          "title": "Tiempo de servicio"
+          "title": "Tiempo de servicio en segundos"
         },
         "scale": {
-          "domain": [10000,500000]
+          "domain": [0,100000]
         }
       },
       "color": {"field": "symbol", "type": "nominal"}

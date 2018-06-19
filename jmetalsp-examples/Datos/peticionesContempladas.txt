@@ -1,0 +1,8 @@
+Petición de movilidad [Parada de origen = 19, Parada de detino = 4, Generada en instante = 2506]
+
+Petición de movilidad [Parada de origen = 16, Parada de detino = 3, Generada en instante = 5470]
+
+Petición de movilidad [Parada de origen = 6, Parada de detino = 13, Generada en instante = 8867]
+
+Petición de movilidad [Parada de origen = 9, Parada de detino = 11, Generada en instante = 12403]
+

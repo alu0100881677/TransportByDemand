@@ -35,14 +35,6 @@ public class StreamingPRBDSource implements StreamingDataSource<SingleObservedDa
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			/*
-			int x = JMetalRandom.getInstance().nextInt(0, numberOfStations);
-			int y = JMetalRandom.getInstance().nextInt(0, numberOfStations);
-			int val = JMetalRandom.getInstance().nextInt(1, 600);
-			timeline += val;
-			observable.setChanged();
-			observable.notifyObservers(new SingleObservedData<PRBDMatrixData>(new PRBDMatrixData("PETITION", x, y, timeline)));
-			*/
 			
 			FileReader fich;
 			try {

@@ -227,7 +227,7 @@ public class DynamicMultiobjectivePRBD
 		        if(timeline > (8* 60 * 60)) {
 		        	//penalización por durar más de las horas de una jornada
 		        	//System.out.println("Penalización por durar más de las horas de una jornada, horas de más --> " + ((timeline - 28800) / (60 * 60)) );
-		        	fitness1 += 10000;
+		        	fitness1 += PENALIZACION;
 		        }
 		        //ruta de nueva guagua tiempo cero
 		        timeline = 0;
@@ -253,6 +253,7 @@ public class DynamicMultiobjectivePRBD
 		}
 		if(y != -1) {
 			fitness2 += evaluarPasajeros(y, busId);
+			fitness1 += distanceMatrix[y][busId];
 		}
 		//System.out.println(traza);
 		//System.out.println("Pimer objetivo: " + fitness1);

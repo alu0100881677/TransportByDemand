@@ -32,7 +32,7 @@ public class DynamicMultiobjectivePRBD
 	private ArrayList<PRBDMatrixData> peticiones;
 	private int timeline = 0;
 	
-	private final int PENALIZACION = 100000;
+	private final int PENALIZACION = 70000;
 	
 	private boolean theProblemHasBeenModified;
 	

@@ -17,7 +17,7 @@
   </style>
 </head>
 <body>
-  <h1>PRBD Pareto Front</h1>
+  <h1 align="center">PRBD Pareto Front</h1>
   <!-- Container for the visualization -->
   <div id="vis"></div>
 
@@ -26,6 +26,8 @@
   var vlSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
     "description": "Representation of the pareto front of TSP",
+    "width": 900,
+    "height": 450,
     "data": { "url": "datos.csv"},
     "mark": "line",
     "encoding": {

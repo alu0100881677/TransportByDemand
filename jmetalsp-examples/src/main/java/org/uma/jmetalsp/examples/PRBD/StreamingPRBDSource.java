@@ -49,11 +49,10 @@ public class StreamingPRBDSource implements StreamingDataSource<SingleObservedDa
 					int x = Integer.parseInt(tokens.nextToken());
 					int y = Integer.parseInt(tokens.nextToken());
 					int val = Integer.parseInt(tokens.nextToken());
-					timeline += val;
 					//si el instante supera el final de la jornada laboral 8h no se añade
-					if(timeline < (8*60*60)) {
+					if(val < (8*60*60)) {
 						observable.setChanged();
-						observable.notifyObservers(new SingleObservedData<PRBDMatrixData>(new PRBDMatrixData("PETITION", x, y, timeline)));
+						observable.notifyObservers(new SingleObservedData<PRBDMatrixData>(new PRBDMatrixData("PETITION", x, y, val)));
 					}
 				}
 				buf.close();

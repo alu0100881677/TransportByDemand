@@ -1,6 +1,6 @@
 package org.uma.jmetalsp.problem.prbd;
 
-public class PRBDMatrixData {
+public class PRBDMatrixData{
 	private int origin ;
 	private int destiny ;
 	private int instant;
@@ -69,6 +69,16 @@ public class PRBDMatrixData {
 	public String toString() {
 		return "Petición de movilidad [Parada de origen = " + origin + ", Parada de detino = " + destiny + ", Generada en instante = " + instant + "]";
 	}
+
+	public boolean equals (PRBDMatrixData a) {
+		if((a.destiny == this.destiny) && (a.origin == this.origin) &&(a.instant == this.instant)) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
 	
 	
 }

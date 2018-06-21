@@ -33,6 +33,7 @@ public class ScheduledTasks implements ApplicationRunner{
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     
+    
     //private final String dir = "/Users/Guille/Google Drive/universidad/TFG/Datos";
     
     @Value("${key.numStations:100}")
@@ -104,7 +105,11 @@ public class ScheduledTasks implements ApplicationRunner{
             pw = new PrintWriter(fichero);
             Random r = new Random();
             for (int i = 0; i < r.nextInt(5); i++) {
-            	instante += r.nextInt(petitionDelay);
+            	int in = r.nextInt(petitionDelay);
+            	if(in < 150) {
+            		in = 150;
+            	}
+            	instante += in;
                 pw.println( r.nextInt(numStations) + " " + r.nextInt(numStations) + " " + instante);
 
             }

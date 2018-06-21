@@ -18,7 +18,7 @@ public class Analizador {
 	private ArrayList<PRBDMatrixData> peticiones;
 	private int numAlmacenes;
 	private int timeline = 0;
-	private final int PENALIZACION = 10000;
+	private final int PENALIZACION = 100000;
 	private int pasajerosServidos = 0;
 
 	
@@ -71,7 +71,7 @@ public class Analizador {
 		        try {
 					fichero = new FileWriter(experimento + j + "/analisis.csv", false);
 					pw = new PrintWriter(fichero);
-					pw.write("Objetivo 1, Objetivo 2, Porcentaje de peticiones servidas, Solucion factible\n");
+					pw.write("Objetivo 1; Objetivo 2; Porcentaje de peticiones servidas; Solucion factible\n");
 					pw.write(contenido);
 					pw.close();
 				} catch (IOException e) {
@@ -257,7 +257,7 @@ public class Analizador {
 		double xxx = (pasajerosServidos * 100.0f) / (peticiones.size() * 100.0f);
 		xxx = xxx * 100;
 		xxx = Math.round(xxx*1000.0)/1000.0;
-		String cadenaRetorno =  fitness1 + "," + fitness2 + "," + xxx + "," ;
+		String cadenaRetorno =  fitness1 + ";" + fitness2 + ";" + xxx + ";" ;
 		if(numeroDeMenosUnos == numberOfBuses - 1) {
 			cadenaRetorno += "SI";
 		}else {

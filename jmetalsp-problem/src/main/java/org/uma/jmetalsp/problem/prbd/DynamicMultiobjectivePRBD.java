@@ -32,7 +32,7 @@ public class DynamicMultiobjectivePRBD
 	private ArrayList<PRBDMatrixData> peticiones;
 	private int timeline = 0;
 	
-	private final int PENALIZACION = 10000;
+	private final int PENALIZACION = 100000;
 	
 	private boolean theProblemHasBeenModified;
 	
@@ -108,10 +108,21 @@ public class DynamicMultiobjectivePRBD
 	}
 	
 	public synchronized void addPetition(PRBDMatrixData data) {
-		peticiones.add(data);
-		System.out.println("nueva petición de movilidad --> " + data);
-		recogerPeticionFichero(data);
-		theProblemHasBeenModified = true;
+		if(!isAlready(data)) {
+			peticiones.add(data);
+			System.out.println("nueva petición de movilidad --> " + data);
+			recogerPeticionFichero(data);
+			theProblemHasBeenModified = true;
+		}
+	}
+	
+	public boolean isAlready(PRBDMatrixData data) {
+		for(int i = 0; i < peticiones.size(); i++) {
+			if(peticiones.get(i).equals(data)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public synchronized double[][] getDistanceMatrix() {

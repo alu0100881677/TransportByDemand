@@ -60,7 +60,7 @@ public class Translator {
 	      FileWriter fw = new FileWriter("datos.csv",false);
 	      String linea = null;
 	      BufferedWriter bw = new BufferedWriter(fw);
-	      bw.write("symbol,x,y\n");
+	      bw.write("Frente,x,y\n");
 	      while((cadena = buf.readLine())!=null){
 	    	  cadena = cadena.trim();
 	    	  String inst2[] = cadena.split("\\s+");

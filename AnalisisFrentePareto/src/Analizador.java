@@ -18,7 +18,7 @@ public class Analizador {
 	private ArrayList<PRBDMatrixData> peticiones;
 	private int numAlmacenes;
 	private int timeline = 0;
-	private final int PENALIZACION = 100000;
+	private final int PENALIZACION = 0;
 	private int pasajerosServidos = 0;
 
 	
@@ -224,7 +224,7 @@ public class Analizador {
 		        if(timeline > (8* 60 * 60)) {
 		        	//penalización por durar más de las horas de una jornada
 		        	//System.out.println("Penalización por durar más de las horas de una jornada, horas de más --> " + ((timeline - 28800) / (60 * 60)) );
-		        	fitness1 += 10000;
+		        	fitness1 += PENALIZACION;
 		        }
 		        //ruta de nueva guagua tiempo cero
 		        timeline = 0;
@@ -249,6 +249,7 @@ public class Analizador {
 			}
 		}
 		if(y != -1) {
+			fitness1 += distanceMatrix[y][busId];
 			fitness2 += evaluarPasajeros(y, busId);
 		}
 		fitness2 +=  penalizarPasajerosOmitidos();

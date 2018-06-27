@@ -1,0 +1,30 @@
+Petición de movilidad [Parada de origen = 32, Parada de detino = 0, Generada en instante = 892]
+
+Petición de movilidad [Parada de origen = 13, Parada de detino = 6, Generada en instante = 1286]
+
+Petición de movilidad [Parada de origen = 33, Parada de detino = 7, Generada en instante = 1539]
+
+Petición de movilidad [Parada de origen = 22, Parada de detino = 36, Generada en instante = 1689]
+
+Petición de movilidad [Parada de origen = 19, Parada de detino = 9, Generada en instante = 1839]
+
+Petición de movilidad [Parada de origen = 9, Parada de detino = 25, Generada en instante = 2134]
+
+Petición de movilidad [Parada de origen = 21, Parada de detino = 8, Generada en instante = 2863]
+
+Petición de movilidad [Parada de origen = 23, Parada de detino = 26, Generada en instante = 3690]
+
+Petición de movilidad [Parada de origen = 6, Parada de detino = 14, Generada en instante = 3840]
+
+Petición de movilidad [Parada de origen = 24, Parada de detino = 1, Generada en instante = 4334]
+
+Petición de movilidad [Parada de origen = 35, Parada de detino = 23, Generada en instante = 4553]
+
+Petición de movilidad [Parada de origen = 9, Parada de detino = 10, Generada en instante = 5030]
+
+Petición de movilidad [Parada de origen = 25, Parada de detino = 30, Generada en instante = 5877]
+
+Petición de movilidad [Parada de origen = 12, Parada de detino = 4, Generada en instante = 6027]
+
+Petición de movilidad [Parada de origen = 11, Parada de detino = 31, Generada en instante = 6733]
+

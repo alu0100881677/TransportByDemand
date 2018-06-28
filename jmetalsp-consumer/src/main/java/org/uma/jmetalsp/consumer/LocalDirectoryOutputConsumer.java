@@ -10,6 +10,7 @@ import org.uma.jmetalsp.observeddata.AlgorithmObservedData;
 import org.uma.jmetalsp.observer.Observable;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -87,9 +88,16 @@ public class LocalDirectoryOutputConsumer<S extends Solution<?>> implements
     List<S> solutionList = (List<S>)data.getData().get("solutionList") ;
     new SolutionListOutput(solutionList)
             .setSeparator("\t")
-            .setFunFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/FUN" + fileCounter + ".tsv"))
+            .setFunFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/OBJ" + fileCounter + ".tsv"))
             .setVarFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/VAR" + fileCounter + ".tsv"))
             .print();
+    GeneradorFrentePareto x = new GeneradorFrentePareto();
+    try {
+		x.generarFichero(outputDirectoryName + "/OBJ" + fileCounter + ".tsv", outputDirectoryName + "/FUN" + fileCounter + ".tsv");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     fileCounter++;
   }
 }

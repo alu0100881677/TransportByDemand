@@ -29,28 +29,27 @@
     "width": 900,
     "height": 450,
     "data": { "url": "datos.csv"},
-    "mark": "line",
+    "mark": {"type": "line", "point": true},
+    "autosize": {
+               "type": "pad",
+               "contains": "padding"
+               },
     "encoding": {
       "y": {
         "field": "x",
         "type": "quantitative",
         "axis": {
           "title": "Distancia recorrida (m.)"
-        },
-        "scale": {
-          "domain": [2000,50000]
-        }
+       },
+       "scale": {"zero": false}
       },
       "x": {
-        "aggregate": "average",
         "field": "y",
         "type": "quantitative",
         "axis": {
           "title": "Tiempo de servicio (s.)"
         },
-        "scale": {
-          "domain": [0,120000]
-        }
+        "scale": {"zero": false}
       },
       "color": {"field": "Frente", "type": "nominal"}
     }

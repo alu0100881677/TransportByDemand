@@ -26,7 +26,9 @@ import org.uma.jmetalsp.observeddata.AlgorithmObservedData;
 import org.uma.jmetalsp.observer.Observable;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -38,13 +40,20 @@ public class ChartConsumer<S extends Solution<?>> implements
         DataConsumer<AlgorithmObservedData<S>> {
 
   private DynamicAlgorithm<?, AlgorithmObservedData<S>> dynamicAlgorithm;
+  private String outputDirectoryName;
   private ChartContainer chart ;
   List<S> lastReceivedFront = null ;
 
-  public ChartConsumer(DynamicAlgorithm<?, AlgorithmObservedData<S>> algorithm) {
+  public ChartConsumer(DynamicAlgorithm<?, AlgorithmObservedData<S>> algorithm, String outputDirectoryName) {
     this.dynamicAlgorithm = algorithm ;
+    this.outputDirectoryName = outputDirectoryName;
     this.chart = null ;
   }
+  
+  public ChartConsumer(DynamicAlgorithm<?, AlgorithmObservedData<S>> algorithm) {
+	    this.dynamicAlgorithm = algorithm ;
+	    this.chart = null ;
+	  }
 
 
   @Override
@@ -82,7 +91,7 @@ public class ChartConsumer<S extends Solution<?>> implements
 
     // TODO: error handling if parameters are not included
 
-   // System.out.println("Number of generated fronts: " + data.getData().get("numberOfIterations"));
+   System.out.println("Number of generated fronts: " + data.getData().get("numberOfIterations"));
     if (chart == null) {
       this.chart = new ChartContainer(dynamicAlgorithm.getName(), 200,this.dynamicAlgorithm.getDynamicProblem().getNumberOfObjectives());
       try {
@@ -101,8 +110,36 @@ public class ChartConsumer<S extends Solution<?>> implements
           this.chart.updateFrontCharts(solutionList, numberOfIterations);
           this.chart.refreshCharts();
         } else {
+        	/*System.out.println("SOLUCION FRENTE DE PARETO");
+        	int tamSolucion = solutionList.get(0).getNumberOfVariables();
+        	for(int i = 0; i < solutionList.size(); i++) {
+        		for(int j = 0; j < tamSolucion; j++) {
+            		System.out.print(solutionList.get(i).getVariableValueString(j) + " ");
+        		}
+        		System.out.println();
+        	}
+        	System.out.println("\n\n\n");*/
           Front referenceFront = new ArrayFront(lastReceivedFront);
-
+          String contenido = "";
+          System.out.println("Imprimiendo frente de Pareto  " + numberOfIterations);
+          int puntos = referenceFront.getNumberOfPoints();
+          for(int i = 0; i < puntos; i++) {
+        	  contenido += referenceFront.getPoint(i) + "\n";
+        	  //System.out.println(referenceFront.getPoint(i));
+          }
+          //System.out.println("\n\n\n");
+          /*FileWriter fichero = null;
+	        PrintWriter pw = null;
+	        try {
+				fichero = new FileWriter(outputDirectoryName + "/FUN" + (numberOfIterations -1) + ".tsv", false);
+				pw = new PrintWriter(fichero);
+				//pw.write("Objetivo 1; Objetivo 2; Porcentaje de peticiones servidas; Solucion factible\n");
+				pw.write(contenido);
+				pw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
           InvertedGenerationalDistance<S> igd =
                   new InvertedGenerationalDistance<S>(referenceFront);
 

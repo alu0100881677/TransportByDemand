@@ -13,6 +13,7 @@ import org.uma.jmetal.operator.impl.mutation.PermutationSwapMutation;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.solution.IntegerSolution;
 import org.uma.jmetal.solution.PermutationSolution;
+import org.uma.jmetal.util.ProblemUtils;
 import org.uma.jmetal.util.comparator.RankingAndCrowdingDistanceComparator;
 import org.uma.jmetalsp.DataConsumer;
 import org.uma.jmetalsp.DynamicAlgorithm;
@@ -70,7 +71,8 @@ public class DynamicApplicationTransportByDemand {
 		//Step 1. Create the problem
 		DynamicProblem<IntegerSolution, SingleObservedData<PRBDMatrixData>> problem;
 		problem = new MultiobjectivePRBDBuilder("Datos/" + args[0],"Datos/" + args[1], "Datos/" + args[2])
-				.build();
+			 .build();
+		
 		
 		//Step 2. Create the algorithm
 		CrossoverOperator<IntegerSolution> crossover;
@@ -111,7 +113,8 @@ public class DynamicApplicationTransportByDemand {
 		DataConsumer<AlgorithmObservedData<IntegerSolution>> localDirectoryOutputConsumer =
 	            new LocalDirectoryOutputConsumer<IntegerSolution>(args[4]);
 	    //DataConsumer<AlgorithmObservedData<IntegerSolution>> chartConsumer =
-	      //      new ChartConsumer<IntegerSolution>(algorithm);
+	      //      new ChartConsumer<IntegerSolution>(algorithm, args[4]);
+		
 	    
 	    algorithm.getObservable().register(localDirectoryOutputConsumer);
 	    //algorithm.getObservable().register(chartConsumer);
@@ -132,5 +135,7 @@ public class DynamicApplicationTransportByDemand {
 		        .addAlgorithmDataConsumer(localDirectoryOutputConsumer)
 		        //.addAlgorithmDataConsumer(chartConsumer)
 		        .run();
+		
+		
 	}
 }

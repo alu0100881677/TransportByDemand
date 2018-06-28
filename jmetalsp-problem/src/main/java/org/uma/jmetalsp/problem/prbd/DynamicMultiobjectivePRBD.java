@@ -308,7 +308,7 @@ public class DynamicMultiobjectivePRBD
 			if((peticiones.get(i).getRide()) && (!peticiones.get(i).getServed())) {
 				peticiones.get(i).setServed(true);
 				//System.out.println("Penalizando la peticiones" + peticiones.get(i));
-				fitness += PENALIZACION;
+				fitness +=  PENALIZACION;
 			}
 		}
 		return fitness;
@@ -321,7 +321,7 @@ public class DynamicMultiobjectivePRBD
 			if((peticion.getServed() ==  false) && (peticion.getRide() ==  false)) {
 				peticion.setServed(true);
 				peticion.setRide(false);
-				fitness += PENALIZACION;
+				fitness +=  PENALIZACION;
 			}
 		}
 		return fitness;

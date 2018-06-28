@@ -2,6 +2,8 @@ package org.uma.jmetalsp.consumer;
 
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.archive.Archive;
+import org.uma.jmetal.util.archive.impl.NonDominatedSolutionListArchive;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 import org.uma.jmetalsp.DataConsumer;
@@ -85,19 +87,30 @@ public class LocalDirectoryOutputConsumer<S extends Solution<?>> implements
 
   @Override
   public void update(Observable<AlgorithmObservedData<S>> observable, AlgorithmObservedData<S> data) {
-    List<S> solutionList = (List<S>)data.getData().get("solutionList") ;
+    /*List<S> solutionList = (List<S>)data.getData().get("solutionList") ;
     new SolutionListOutput(solutionList)
             .setSeparator("\t")
-            //.setFunFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/OBJ" + fileCounter + ".tsv"))
-            //.setVarFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/VAR" + fileCounter + ".tsv"))
+            .setFunFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/OBJ" + fileCounter + ".tsv"))
+            .setVarFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/VAR" + fileCounter + ".tsv"))
             .print();
-    /*GeneradorFrentePareto x = new GeneradorFrentePareto();
+    GeneradorFrentePareto x = new GeneradorFrentePareto();
     try {
 		x.generarFichero(outputDirectoryName + "/OBJ" + fileCounter + ".tsv", outputDirectoryName + "/FUN" + fileCounter + ".tsv");
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}*/
-    fileCounter++;
+	}
+    fileCounter++;*/
+	  List<S> solutionList = (List<S>)data.getData().get("solutionList") ;
+	    Archive<S> nonDominatedArchive = new NonDominatedSolutionListArchive<>();
+	    for (S solution : solutionList) {
+	      nonDominatedArchive.add(solution) ;
+	    }
+	    new SolutionListOutput(nonDominatedArchive.getSolutionList())
+	            .setSeparator("\t")
+	            .setFunFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/FUN" + fileCounter + ".tsv"))
+	            .setVarFileOutputContext(new DefaultFileOutputContext(outputDirectoryName + "/VAR" + fileCounter + ".tsv"))
+	            .print();
+	    fileCounter++;
   }
 }

@@ -3,9 +3,10 @@
   <title>Vega Lite Bar Chart</title>
   <meta charset="utf-8">
 
-  <script src="https://cdn.jsdelivr.net/npm/vega@3.0.10/build/vega.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.1.3/build/vega-lite.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.0.0/build/vega-embed.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.5.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.14.0"></script>
+
 
 
 <meta http-equiv="refresh" content="2" />
@@ -24,36 +25,36 @@
   <script>
   // Assign the specification to a local variable vlSpec.
   var vlSpec = {
-    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-    "description": "Representation of the pareto front of TSP",
-    "width": 900,
-    "height": 450,
-    "data": { "url": "datos.csv"},
-    "mark": {"type": "line", "point": true},
-    "autosize": {
-               "type": "pad",
-               "contains": "padding"
-               },
-    "encoding": {
-      "y": {
-        "field": "x",
-        "type": "quantitative",
-        "axis": {
-          "title": "Distancia recorrida (m.)"
-       },
-       "scale": {"zero": false}
-      },
-      "x": {
-        "field": "y",
-        "type": "quantitative",
-        "axis": {
-          "title": "Tiempo de servicio (s.)"
+      "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+      "description": "Representation of the pareto front of TSP",
+      "width": 900,
+      "height": 450,
+      "data": { "url": "datos.csv"},
+      "mark": {"type": "line", "color": "green","point": {"color": "red"}},
+      "autosize": {
+                 "type": "pad",
+                 "contains": "padding"
+                 },
+      "encoding": {
+        "y": {
+          "field": "x",
+          "type": "quantitative",
+          "axis": {
+            "title": "Distancia recorrida (m.)"
+         },
+         "scale": {"zero": false}
         },
-        "scale": {"zero": false}
-      },
-      "color": {"field": "Frente", "type": "nominal"}
-    }
-  };
+        "x": {
+          "field": "y",
+          "type": "quantitative",
+          "axis": {
+            "title": "Tiempo de servicio (s.)"
+          },
+          "scale": {"zero": false}
+        },
+        "color": {"field": "Frente", "type": "nominal"}
+      }
+   };
 
   // Embed the visualization in the container with id `vis`
   vegaEmbed("#vis", vlSpec);
